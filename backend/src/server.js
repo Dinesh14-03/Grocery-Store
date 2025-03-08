@@ -11,9 +11,12 @@ app.use(cors());
 
 
 
-mongoose.connect("mongodb://localhost:27017/grocery").then(()=>{
+mongoose.connect("mongodb+srv://dinesh_1403:Dinesh1403@c0.aulfo.mongodb.net/grocery?retryWrites=true&w=majority&appName=C0").then(()=>{
     console.log("connecteds success");
 })
+.catch((err=>{
+    console.log("error from DB",err)
+}))
 
 const User = require("./user");
 const Cart = require("./cart");
@@ -28,6 +31,21 @@ app.post("/grocery/users",async(req,res)=>{
     }
    
 })
+
+app.get("/grocery/users", async (req, res) => {
+    try {
+        const { email, password } = req.query;
+        let query = {};
+        if (email) query.email = email;
+        if (password) query.password = password;
+        const users = await User.find(query);
+        res.send(users);
+    } catch (err) {
+        console.error("Error fetching user data:", err);
+        res.status(500).send("Internal Server Error");
+    }
+});
+
 app.post("/grocery/carts",async(req,res)=>{
     try{
         
