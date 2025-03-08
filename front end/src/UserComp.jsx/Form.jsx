@@ -20,11 +20,11 @@ export default function Form(){
         };
 
          try {
-            const response = await axios.get(`http://localhost:4000/grocery/users?email=${email}`);
+            const response = await axios.get(`https://grocery-store-coa9.onrender.com/grocery/users?email=${email}`);
             if (response.data.length > 0) {
                 alert("Account already registered!");
             } else {
-                await axios.post("http://localhost:4000/grocery/users", formData);
+                await axios.post("https://grocery-store-coa9.onrender.com/grocery/users", formData);
                 alert("Registered successfully!");
                 navigate("/login");
             }

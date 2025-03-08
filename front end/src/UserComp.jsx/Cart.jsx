@@ -8,7 +8,7 @@ export default function Cart() {
     useEffect(() => {
         const fetchCartData = async () => {
             try {
-                const response = await axios.get("http://localhost:4000/grocery/carts");
+                const response = await axios.get("https://grocery-store-coa9.onrender.com/grocery/carts");
                 console.log(response.data)
                 setCartData(response.data);
             } catch (err) {

@@ -20,7 +20,7 @@ const FruitCard = ({ image, name, price ,actual , quans}) => {
          price : count * price
     }
     axios
-    .post("http://localhost:4000/grocery/carts",cartdata)
+    .post("https://grocery-store-coa9.onrender.com/grocery/carts",cartdata)
     .then((res)=>{
       console.log(`running successfully`);
       alert("Item added to cart!");
