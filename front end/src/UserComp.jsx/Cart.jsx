@@ -9,6 +9,7 @@ export default function Cart() {
         const fetchCartData = async () => {
             try {
                 const response = await axios.get("http://localhost:4000/grocery/carts");
+                console.log(response.data)
                 setCartData(response.data);
             } catch (err) {
                 console.error("Error fetching cart data:", err);

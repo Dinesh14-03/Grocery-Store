@@ -1,3 +1,4 @@
+import axios from "axios"; 
 import { useState } from "react";
 import { FaRupeeSign } from "react-icons/fa";
 import { LiaRupeeSignSolid } from "react-icons/lia";
@@ -8,6 +9,28 @@ const DiaryCards = ({ image, name, price,actual,quans}) => {
 
   const AddToCart = () => setCount((prev) => prev + 1);
   const ReduceFromCart = () => setCount((prev) => (prev > 0 ? prev - 1 : 0));
+
+  const handlefunction = (e) => {
+    e.preventDefault();
+    
+    const cartdata = {
+         name : name,
+         actualPrice : actual,
+         discountPrice : price,
+         price : count * price
+    }
+    axios
+    .post("http://localhost:4000/grocery/carts",cartdata)
+    .then((res)=>{
+      console.log(`running successfully`);
+      alert("Item added to cart!");
+  })
+  .catch((err)=>{
+      console.log(`the error has been detected ${err}`);
+      alert("Failed to add item to cart. Please try again."); 
+  })
+  }
+
   const discount = actual > 0 ? Math.round(((actual - price) / actual) * 100) : 0;
   return (
     <div className="inside">
@@ -45,7 +68,7 @@ const DiaryCards = ({ image, name, price,actual,quans}) => {
               <button className="reduce-button" onClick={ReduceFromCart}>
                 Reduce
               </button>
-              <button className="reduce-button">
+              <button className="reduce-button" onClick={handlefunction}>
                 Add to Cart
               </button>
             </td>

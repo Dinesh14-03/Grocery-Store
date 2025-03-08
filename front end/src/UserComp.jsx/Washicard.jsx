@@ -1,12 +1,35 @@
+import axios from "axios"; 
 import {useState} from "react";
 import { FaRupeeSign } from "react-icons/fa";
 import { LiaRupeeSignSolid } from "react-icons/lia";
 import { useSearchParams } from 'react-router-dom';
 
 const Washicards=({name,image,price,actual,quans})=>{
-  const [cnt,setcnt]=useState(0);
-  const AddToCart = ()=>setcnt((prev)=>prev+1);
-  const ReduceFromCart = ()=>setcnt((prev)=>(prev>0)?prev-1:0);
+  const [count,setcount]=useState(0);
+  const AddToCart = ()=>setcount((prev)=>prev+1);
+  const ReduceFromCart = ()=>setcount((prev)=>(prev>0)?prev-1:0);
+
+  const handlefunction = (e) => {
+    e.preventDefault();
+    
+    const cartdata = {
+         name : name,
+         actualPrice : actual,
+         discountPrice : price,
+         price : count * price
+    }
+    axios
+    .post("http://localhost:4000/grocery/carts",cartdata)
+    .then((res)=>{
+      console.log(`running successfully`);
+      alert("Item added to cart!");
+  })
+  .catch((err)=>{
+      console.log(`the error has been detected ${err}`);
+      alert("Failed to add item to cart. Please try again."); 
+  })
+  }
+
   const discount = actual > 0 ? Math.round(((actual - price) / actual) * 100) : 0;
   return(
     <div className="inside">
@@ -39,12 +62,12 @@ const Washicards=({name,image,price,actual,quans})=>{
               <p style={{fontSize:"14px" , color:"grey"}}>Quantity : {quans}</p>
               </p>
               <button className="add-button" onClick={AddToCart}>
-                Pick {cnt > 0 ? `[${cnt}]` : ""}
+                Pick {count > 0 ? `[${count}]` : ""}
               </button>
               <button className="reduce-button" onClick={ReduceFromCart}>
                 Reduce
               </button>
-              <button className="reduce-button">
+              <button className="reduce-button"  onClick={handlefunction}>
                 Add to Cart
               </button>
             </td>

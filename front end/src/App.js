@@ -1,4 +1,5 @@
 import React from 'react';
+import { UserProvider } from './UserComp.jsx/UserContext';
 import './App.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Fruits from './UserComp.jsx/Fruits';
@@ -11,10 +12,12 @@ import Header from './UserComp.jsx/Header';
 import Cart from './UserComp.jsx/Cart';
 import Diary from './UserComp.jsx/Diary';
 import Form from './UserComp.jsx/Form';
+import Login from './UserComp.jsx/Login';
 
 export default function App() {
   return (
     <Router>
+      <UserProvider>
     <div className="backgrnd">
     <Header />
         <div className='carding'>
@@ -27,10 +30,12 @@ export default function App() {
             <Route path="/diary" element={<Diary/>} />
             <Route path="/Cart" element={<Cart />} />
             <Route path="/Form" element={<Form />} />
+            <Route path="/login" element={<Login/>}/>
           </Routes>
         </div>
         <Footer />
         </div>
+        </UserProvider>
     </Router>
   );
 }
