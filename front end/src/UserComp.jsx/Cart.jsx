@@ -35,7 +35,7 @@ export default function Cart() {
 
      const handlePlaceOrder = async () => {
         try {
-            await axios.delete("http://localhost:4000/grocery/carts");
+            await axios.delete("https://grocery-store-coa9.onrender.com/grocery/carts");
             setCartData([]); 
             alert("Order placed successfully!");
             navigate("/"); 
